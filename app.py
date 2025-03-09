@@ -1,4 +1,4 @@
-from shiny import App, ui, reactive, render
+from shiny import App, ui, reactive, render, req
 
 def reverse_complement(sequence, molecule):
     if molecule == "DNA":
@@ -119,6 +119,7 @@ def server(input, output, session):
     @reactive.Effect
     @reactive.event(input.copy_success)
     def show_notification():
+        req(rev_comp_seq())
         ui.notification_show(
             f"{rev_comp_seq()} is copied to the clipboard.",
             type="default",
