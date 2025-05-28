@@ -48,7 +48,7 @@ def server(input, output, session):
 
     @reactive.Calc
     def input_type():
-        sequence = input.input_sequence().upper()
+        sequence = input.input_sequence().upper().replace(" ", "").replace("\n", "").replace("\t", "")
         if all(base in 'ATGCN' for base in sequence):
             return "DNA"
         elif all(base in 'AUGC' for base in sequence):
