@@ -48,7 +48,7 @@ def server(input, output, session):
 
     @reactive.Calc
     def input_type():
-        sequence = input.input_sequence().upper().replace(" ", "").replace("\n", "").replace("\t", "")
+        sequence = input.input_sequence().replace(" ", "").replace("\n", "").replace("\t", "").upper()
         if all(base in 'ATGCN' for base in sequence):
             return "DNA"
         elif all(base in 'AUGC' for base in sequence):
@@ -92,7 +92,8 @@ def server(input, output, session):
     @render.text
     @reactive.event(input.input_sequence, input.output_type, ignore_none=False)
     def reverse_complement_sequence():
-        sequence = input.input_sequence().upper()
+        # Clean the sequence before processing
+        sequence = input.input_sequence().replace(" ", "").replace("\n", "").replace("\t", "").upper()
         if sequence:
             molecule_type = input_type()
             if molecule_type is not None:
